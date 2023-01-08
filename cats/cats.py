@@ -222,9 +222,13 @@ def fastest_words(game):
             elif time(game, pi, wi) < word_dict[wi][1]:
                 word_dict[wi] = (pi, time(game, pi, wi))
 
-    results = [[word_at(game, word_dict[idx][0])]
-               for idx in player_indices]
-
+    results = [[] for _ in player_indices]
+    for word_i, player_time in word_dict.items():
+        idx = player_time[0]
+        if results[idx]:
+            results[idx].append(word_at(game, word_i))
+        else:
+            results[idx] = [word_at(game, word_i)]
     return results
     # END PROBLEM 1
 
